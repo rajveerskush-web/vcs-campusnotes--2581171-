@@ -75,6 +75,30 @@ def delete_note(notes):
         print("Please enter a valid number.")
 
 
+def edit_note(notes):
+    view_notes(notes)
+
+    if not notes:
+        return
+
+    try:
+        number = int(input("\nEnter note number to edit: "))
+
+        if 1 <= number <= len(notes):
+            note = notes[number - 1]
+
+            note["subject"] = input("Enter new subject: ")
+            note["content"] = input("Enter new content: ")
+
+            save_notes(notes)
+            print("Note updated successfully!")
+
+        else:
+            print("Invalid note number.")
+
+    except ValueError:
+        print("Please enter a valid number.")
+
 def main():
     notes = load_notes()
 
@@ -84,7 +108,8 @@ def main():
         print("2. View Notes")
         print("3. Search Notes")
         print("4. Delete Note")
-        print("5. Exit")
+        print("5. Edit Note")
+        print("6. Exit")
 
         choice = input("Enter your choice: ")
 
@@ -97,6 +122,8 @@ def main():
         elif choice == "4":
             delete_note(notes)
         elif choice == "5":
+            edit_note(notes)
+        elif choice == "6":
             print("Thank you for using CampusNotes!")
             break
         else:
